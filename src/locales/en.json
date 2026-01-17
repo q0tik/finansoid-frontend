@@ -1,0 +1,19 @@
+{
+  "common": {
+    "add": "Add",
+    "delete": "Delete",
+    "cancel": "Cancel",
+    "confirm": "Confirm",
+    "loading": "Loading..."
+  },
+  "profile": {
+    "management": "Management",
+    "tables": "Data Tables",
+    "add_title": "Add Profile",
+    "delete_title": "Delete Profile",
+    "name_placeholder": "e.g. Personal, Work...",
+    "delete_warn": "To delete {name}, type the profile name below:",
+    "create_btn": "Create Profile",
+    "delete_btn": "Delete Permanently"
+  }
+}

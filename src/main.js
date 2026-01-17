@@ -1,17 +1,17 @@
-import './assets/tailwind.css'
-import 'ant-design-vue/dist/reset.css'
 import { createApp } from 'vue'
 import App from './App.vue'
-import { createPinia } from 'pinia'
 import router from './router'
-import Antd from 'ant-design-vue'
+import { createPinia } from 'pinia'
+import i18n from './i18n'
 
-// Load theme from localStorage
-const savedTheme = localStorage.getItem('theme') || 'light';
-document.documentElement.setAttribute('data-theme', savedTheme);
+import '@/assets/main.css'
+import '@/assets/theme.css'
+
+import { setupHardcodedTokens } from '@/api/hardcode_auth.js'
+setupHardcodedTokens();
 
 const app = createApp(App)
 app.use(createPinia())
 app.use(router)
-app.use(Antd)
+app.use(i18n)
 app.mount('#app')
