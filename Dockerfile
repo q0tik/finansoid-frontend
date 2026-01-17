@@ -6,10 +6,6 @@ WORKDIR /app
 # Копируем исходники
 COPY . .
 
-ARG CONF_PATH
-ENV CONF_PATH=${CONF_PATH}
-RUN echo "BUILD CONF_PATH=$CONF_PATH"
-
 # Устанавливаем зависимости
 COPY package.json package-lock.json* pnpm-lock.yaml* yarn.lock* ./
 RUN npm ci --include=dev
@@ -21,14 +17,13 @@ RUN npm run build
 # ======= NGINX STAGE =======
 FROM nginx:alpine
 
-# Удаляем дефолтный конфиг
+# 3. Устанавливаем пакет для подстановки переменных в конфиг
+# (envsubst уже есть в образе nginx:alpine)
+
 RUN rm -rf /etc/nginx/conf.d/default.conf
+COPY nginx.conf /etc/nginx/templates/default.conf.template
 
-# Копируем наш конфиг
-COPY nginx.conf /etc/nginx/conf.d/default.conf
-
-# Копируем сборку Vite
 COPY --from=builder /app/dist /usr/share/nginx/html
 
-# Чтобы Nginx работал в фореграунде
-CMD ["nginx", "-g", "daemon off;"]
+# 4. Магия для Railway: подставляем $PORT в конфиг Nginx перед запуском
+CMD ["sh", "-c", "envsubst '${PORT}' < /etc/nginx/templates/default.conf.template > /etc/nginx/conf.d/default.conf && nginx -g 'daemon off;'"]
