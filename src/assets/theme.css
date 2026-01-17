@@ -1,0 +1,95 @@
+@layer base {
+  :root {
+    /* Основные */
+    --background: oklch(1 0 0);
+    --foreground: oklch(0.145 0 0);
+    
+    /* Карточки и всплывающие окна */
+    --card: oklch(1 0 0);
+    --card-foreground: oklch(0.145 0 0);
+    --popover: oklch(1 0 0);
+    --popover-foreground: oklch(0.145 0 0);
+    
+    /* Кнопки и акценты (Светлая тема: Темная кнопка) */
+    --primary: oklch(0.21 0.006 285.885);
+    --primary-foreground: oklch(0.985 0 0);
+    
+    /* Вторичные элементы */
+    --secondary: oklch(0.96 0 0);
+    --secondary-foreground: oklch(0.21 0.006 285.885);
+    --muted: oklch(0.96 0 0);
+    --muted-foreground: oklch(0.55 0 0);
+    --accent: oklch(0.96 0 0);
+    --accent-foreground: oklch(0.21 0.006 285.885);
+    
+    /* Системные */
+    --destructive: oklch(0.6 0.2 25);
+    --destructive-foreground: oklch(0.985 0 0);
+    --border: oklch(0.92 0 0);
+    --input: oklch(0.92 0 0);
+    --ring: oklch(0.21 0.006 285.885 / 15%);
+    --radius: 0.75rem;
+  }
+
+  .dark {
+    /* Глубокий темно-синий фон */
+    --background: oklch(0.129 0.042 264.695);
+    --foreground: oklch(0.985 0 0);
+    
+    --card: oklch(0.15 0.05 264.695);
+    --card-foreground: oklch(0.985 0 0);
+    --popover: oklch(0.15 0.05 264.695);
+    --popover-foreground: oklch(0.985 0 0);
+    
+    /* Темная тема: Мятная кнопка */
+    --primary: oklch(0.705 0.191 165.235);
+    --primary-foreground: oklch(0.2 0.04 264.695);
+    
+    --secondary: oklch(0.25 0.05 264.695);
+    --secondary-foreground: oklch(0.985 0 0);
+    --muted: oklch(0.25 0.05 264.695);
+    --muted-foreground: oklch(0.7 0.05 264.695);
+    --accent: oklch(0.25 0.05 264.695);
+    --accent-foreground: oklch(0.985 0 0);
+    
+    --destructive: oklch(0.5 0.2 25);
+    --destructive-foreground: oklch(0.985 0 0);
+    --border: oklch(0.25 0.05 264.695);
+    --input: oklch(0.25 0.05 264.695);
+    --ring: oklch(0.705 0.191 165.235 / 30%);
+  }
+
+  [data-theme="mint"] {
+    --background: oklch(0.98 0.02 165);
+    --foreground: oklch(0.2 0.1 165);
+    
+    --card: oklch(0.95 0.04 165);
+    --card-foreground: oklch(0.2 0.1 165);
+    
+    --primary: oklch(0.65 0.18 165);
+    --primary-foreground: oklch(0.99 0.01 165);
+    
+    --muted: oklch(0.92 0.05 165);
+    --muted-foreground: oklch(0.4 0.1 165);
+    --border: oklch(0.88 0.08 165);
+    --input: oklch(0.88 0.08 165);
+    --ring: oklch(0.65 0.18 165 / 20%);
+  }
+
+  [data-theme="desert"] {
+    --background: oklch(0.96 0.02 70);
+    --foreground: oklch(0.25 0.06 45);
+    
+    --card: oklch(0.93 0.04 75);
+    --card-foreground: oklch(0.25 0.06 45);
+    
+    --primary: oklch(0.55 0.12 50);
+    --primary-foreground: oklch(0.98 0.01 70);
+    
+    --muted: oklch(0.88 0.05 70);
+    --muted-foreground: oklch(0.45 0.1 60);
+    --border: oklch(0.85 0.08 70);
+    --input: oklch(0.85 0.08 70);
+    --ring: oklch(0.55 0.12 50 / 20%);
+  }
+}
