@@ -1,7 +1,6 @@
 import axios from 'axios'
-import { useRouter } from 'vue-router'
+import router from '@/router'
 
-const router = useRouter()
 let refreshInProgress = false
 
 const api = axios.create({
@@ -19,37 +18,44 @@ const api = axios.create({
 // Обновить токен (POST /finansoid-api/v1/auth/refresh)
 export async function refreshToken() {
   try {
-    const { data } = await api.post('/finansoid-api/v1/auth/refresh')
+    // ВАЖНО: Добавляем флаг _retry, чтобы интерцептор проигнорировал этот запрос
+    const { data } = await api.post('/finansoid-api/v1/auth/refresh', {}, { _retry: true })
     return { success: true, data }
   } catch (err) {
-    if (err.response?.status === 401)
-      return { success: false, unauthorized: true }
-
-    console.error('refreshToken() failed:', err)
-    return { success: false }
+    // Если даже рефреш выдал 401 — всё, полномочия всё, нужно логинить заново
+    return { success: false, unauthorized: true }
   }
 }
 
 api.interceptors.response.use(
   (res) => res,
   async (err) => {
-    if (err.response?.status === 401) {
+    const originalRequest = err.config;
 
+    // 1. Если это 401 И это НЕ повторный запрос на рефреш
+    if (err.response?.status === 401 && !originalRequest._retry) {
+      
       if (!refreshInProgress) {
         refreshInProgress = true
-        
-        const ok = await refreshToken()
+        originalRequest._retry = true // Помечаем текущий запрос как "в процессе повтора"
+
+        const res = await refreshToken()
         refreshInProgress = false
 
-        if (ok) {
-          return api(err.config) // повторяем запрос
+        if (res.success) {
+          // Если рефреш удался, повторяем оригинальный запрос
+          return api(originalRequest)
+        } else {
+          router.push('/login')
+          return Promise.reject(err)
         }
-
-        router.push('/login')
       }
-
-      return
+      
+      // Пока идет один рефреш, остальные 401 должны просто ждать или падать
+      // Можно добавить очередь (queue), но для начала хватит и этого
+      return Promise.reject(err)
     }
+
     console.error('API error:', err)
     throw err
   }

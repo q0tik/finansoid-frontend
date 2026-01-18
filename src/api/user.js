@@ -17,7 +17,7 @@ export async function getMe() {
     */
     return data
   } catch (err) {
-    console.error('getCategories() failed:', err)
+    console.error('getMe() failed:', err)
     return { success: false }
   }
 }
