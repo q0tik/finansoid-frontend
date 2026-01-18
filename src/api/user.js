@@ -18,6 +18,6 @@ export async function getMe() {
     return data
   } catch (err) {
     console.error('getCategories() failed:', err)
-    return { success: false, categories: [], pagination: { page: 1, per_page: perPage, total: 0 } }
+    return { success: false }
   }
 }
