@@ -8,7 +8,12 @@ import '@/assets/main.css'
 import '@/assets/theme.css'
 
 import { setupHardcodedTokens } from '@/api/hardcode_auth.js'
-setupHardcodedTokens();
+
+const env = import.meta.env.VITE_ENVIRONMENT?.toLowerCase();
+if (env === 'dev') {
+    console.log("🛠️ Dev environment detected: Setting up hardcoded tokens...");
+    setupHardcodedTokens();
+}
 
 const app = createApp(App)
 app.use(createPinia())
