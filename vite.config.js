@@ -2,7 +2,7 @@ import { defineConfig, loadEnv } from 'vite'
 import vue from '@vitejs/plugin-vue'
 import tailwindcss from '@tailwindcss/vite'
 import path from 'path'
-import legacy from '@vitejs/plugin-legacy'
+// import legacy from '@vitejs/plugin-legacy'
 
 export default defineConfig(({ mode }) => {
   const env = loadEnv(mode, process.cwd(), '')
@@ -11,15 +11,15 @@ export default defineConfig(({ mode }) => {
     VITE_BACKEND_URL: env.VITE_BACKEND_URL,
     VITE_ENVIRONMENT: env.VITE_ENVIRONMENT
   })
-  
+
   return {
     plugins: [
       vue(),
       tailwindcss(),
-      legacy({
-        targets: ['iOS >= 12'],
-        additionalLegacyPolyfills: ['regenerator-runtime/runtime']
-      }),
+      // legacy({
+      //   targets: ['iOS >= 12'],
+      //   additionalLegacyPolyfills: ['regenerator-runtime/runtime']
+      // }),
     ],
     resolve: {
       alias: {

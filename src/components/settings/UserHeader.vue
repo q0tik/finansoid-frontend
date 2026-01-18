@@ -12,15 +12,18 @@ const copied = ref(false)
 const showId = ref(false)
 let timer = null
 
+// Используй функцию обертку, если боишься "оценки строк"
+const toggleId = () => {
+  showId.value = !showId.value
+}
+
 onMounted(async () => {
   const res = await getMe()
   if (res?.success) user.value = res.user
   loadingUser.value = false
 
-  // Запускаем цикл смены текста каждые 3 секунды
-  timer = setInterval(() => {
-    showId.value = !showId.value
-  }, 3000)
+  // Передаем ссылку на функцию напрямую, это максимально безопасно
+  timer = setInterval(toggleId, 3000)
 })
 
 onUnmounted(() => {
