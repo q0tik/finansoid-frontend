@@ -7,7 +7,11 @@ import legacy from '@vitejs/plugin-legacy'
 export default defineConfig(({ mode }) => {
   const env = loadEnv(mode, process.cwd(), '')
 
-  console.log('VITE_BACKEND_URL:', env.VITE_BACKEND_URL)
+  console.log('Building with ENV:', {
+    VITE_BACKEND_URL: env.VITE_BACKEND_URL,
+    VITE_ENVIRONMENT: env.VITE_ENVIRONMENT
+  })
+  
   return {
     plugins: [
       vue(),
@@ -24,6 +28,7 @@ export default defineConfig(({ mode }) => {
     },
     define: {
       'import.meta.env.VITE_BACKEND_URL': JSON.stringify(env.VITE_BACKEND_URL),
+      'import.meta.env.VITE_ENVIRONMENT': JSON.stringify(env.VITE_ENVIRONMENT),
     },
     build: {
       target: ['es2018'],
