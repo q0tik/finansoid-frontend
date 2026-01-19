@@ -32,7 +32,7 @@ export async function register(username, password) {
 // Послать callback телеговской авторизации (POST /finansoid-api/v1/auth/telegram/callback)
 export async function telegramCallback(tg_data) {
   try {
-    const { data } = await api.post('/finansoid-api/v1/auth/telegram/callback', {tg_data})
+    const { data } = await api.post('/finansoid-api/v1/auth/telegram/callback', {tg_data}, { timeout: 20000 })
     return { success: true, data }
   } catch (err) {
     console.error('telegramCallback() failed:', err)
@@ -66,7 +66,8 @@ export async function loginMiniApp(initData) {
 
     const { data } = await api.post(
       '/finansoid-api/v1/auth/telegram/miniapp',
-      parsed
+      parsed,
+      { timeout: 20000 }
     )
 
     return { success: true, data }
