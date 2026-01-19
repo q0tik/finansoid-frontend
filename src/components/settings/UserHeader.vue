@@ -32,7 +32,7 @@ onUnmounted(() => {
 
 const formatId = (id) => {
   if (!id) return '—'
-  return `${id.slice(0, 5)}...${id.slice(-5)}`
+  return `${id.slice(0, 5)}..${id.slice(-5)}`
 }
 
 const handleImageError = () => {
@@ -91,7 +91,7 @@ const copyId = async () => {
         <div class="mt-2">
           <button 
             @click="copyId"
-            class="group flex items-center justify-between px-4 py-1.5 bg-muted/40 hover:bg-muted border border-border/50 rounded-full transition-all active:scale-95 w-[135px]"
+            class="group flex items-center justify-between px-4 py-1.5 bg-muted/40 hover:bg-muted border border-border/50 rounded-full transition-all active:scale-95 w-[150px]"
           >
             <div class="flex-1 flex justify-center overflow-hidden">
               <Transition name="text-swap" mode="out-in">

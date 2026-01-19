@@ -11,7 +11,7 @@ const currentTheme = ref(localStorage.getItem('user-theme') || 'light')
 </script>
 
 <template>
-  <div class="h-full overflow-y-auto bg-background p-4 space-y-4 flex flex-col">
+  <div class="h-full overflow-y-auto bg-background p-4 pb-24 space-y-4 flex flex-col">
     
     <UserHeader />
 
