@@ -64,4 +64,21 @@ body {
     /* В v4 для глобальных границ лучше использовать нативный CSS с переменными */
     border-color: var(--border);
   }
+
+  input, textarea, [contenteditable="true"] {
+    -webkit-user-select: text;
+    user-select: text;
+  }
+
+  /* ЕБЛИВЫЕ СТРЕЛОЧКИ */
+  input::-webkit-outer-spin-button,
+  input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+
+  input[type="number"] {
+    -moz-appearance: textfield;
+    appearance: none; /* Для современных браузеров */
+  }
 }
