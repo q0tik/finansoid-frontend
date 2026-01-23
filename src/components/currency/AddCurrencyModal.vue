@@ -86,7 +86,7 @@ watch(
                 id="code"
                 v-model="code"
                 type="text"
-                maxlength="3"
+                maxlength="4"
                 class="w-full px-4 py-3 bg-background border border-input rounded-xl outline-none focus:border-primary/50 focus:ring-4 focus:ring-primary/10 transition-all uppercase shadow-sm placeholder:text-muted-foreground"
                 placeholder="USD"
                 required
@@ -112,7 +112,7 @@ watch(
               v-model="decimals"
               type="number"
               min="0"
-              max="8"
+              max="20"
               class="w-full px-4 py-3 bg-background border border-input rounded-xl outline-none focus:border-primary/50 focus:ring-4 focus:ring-primary/10 transition-all shadow-sm placeholder:text-muted-foreground"
             />
           </div>
