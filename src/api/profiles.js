@@ -24,6 +24,7 @@ export async function createProfile(title) {
   }
 }
 
+// Получить ID основного профиля (GET /finansoid-api/v1/profiles/main)
 export async function getMainProfileId() {
   try {
     const { data } = await api.get('/finansoid-api/v1/profiles/main')
@@ -33,6 +34,68 @@ export async function getMainProfileId() {
     return { success: false }
   }
 }
+
+// Получить информацию о профиле по ID (GET /finansoid-api/v1/profiles/{id})
+export async function getProfileById(id) {
+  try {
+    const { data } = await api.get(`/finansoid-api/v1/profiles/${id}`)
+    /* Example response:
+    {
+      success: true,
+      profile: {
+        id: 'some_uuid',
+        title: 'My Profile',
+        created_at: '2023-01-01T12:00:00Z',
+        accounts_count: 5,
+        users: [
+          {
+            id: 'user_uuid',
+            username: 'Oleg44_rus',
+          },
+          ...
+        ],
+      }
+    }
+    */
+    return data
+  } catch (err) {
+    console.error('getProfileById() failed:', err)
+    return { success: false }
+  }
+}
+
+// Обновить профиль по ID (GET /finansoid-api/v1/profiles/{id})
+export async function editProfileById(id, title) {
+  try {
+    const { data } = await api.put(`/finansoid-api/v1/profiles/${id}`, {title})
+    /* Example response:
+    {
+      success: true,
+    }
+    */
+    return data
+  } catch (err) {
+    console.error('editProfileById() failed:', err)
+    return { success: false }
+  }
+}
+
+// Добавить пользователя к профилю по ID (GET /finansoid-api/v1/profiles/{id})
+export async function addUserToProfile(id, user_id) {
+  try {
+    const { data } = await api.post(`/finansoid-api/v1/profiles/${id}/users`, { user_id })
+    /* Example response:
+    {
+      success: true,
+    }
+    */
+    return data
+  } catch (err) {
+    console.error('addUserToProfile() failed:', err)
+    return { success: false }
+  }
+}
+
 // Удалить профиль (DELETE /finansoid-api/v1/profiles/{id})
 export async function deleteProfile(id) {
   try {

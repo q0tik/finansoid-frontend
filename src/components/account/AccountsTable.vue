@@ -1,10 +1,11 @@
 <script setup lang="ts">
 import { ref, onMounted } from 'vue'
-import { Trash2, Plus, Loader2, Wallet } from 'lucide-vue-next'
+import { Trash2, Plus, Loader2, Wallet, Users, Info as InfoIcon} from 'lucide-vue-next'
 import { getAccounts, createAccount, deleteAccount } from '@/api/accounts'
 import { Button } from '@/components/ui/button'
-import AddAccountModal from '@/components/AddAccountModal.vue'
-import DeleteAccountModal from '@/components/DeleteAccountModal.vue'
+import AddAccountModal from '@/components/account/AddAccountModal.vue'
+import AccountInfoModal from '@/components/account/AccountInfoModal.vue'
+import DeleteModal from '@/components/DeleteModal.vue'
 
 const accounts = ref([])
 const loading = ref(false)
@@ -16,6 +17,14 @@ const perPage = 6
 const showAddModal = ref(false)
 const showDeleteModal = ref(false)
 const deletingAccount = ref(null)
+
+const showInfoModal = ref(false)
+const selectedAccountId = ref(null)
+
+function openInfo(acc) {
+  selectedAccountId.value = acc.id
+  showInfoModal.value = true
+}
 
 async function loadAccounts(append = false) {
   const profileId = localStorage.getItem('active_profile')
@@ -79,29 +88,65 @@ onMounted(() => loadAccounts())
         <div 
           v-for="acc in accounts" 
           :key="acc.id"
-          class="flex items-center justify-between p-4 rounded-xl border border-border bg-card/40 hover:bg-card/60 transition-all"
+          class="flex items-center justify-between p-4 rounded-xl border border-border bg-card/40 transition-all"
+          :class="[
+            acc.is_owner 
+              ? 'hover:bg-card/60' 
+              : 'opacity-60 grayscale-[0.2] bg-muted/20 border-dashed'
+          ]"
         >
-          <div class="flex items-center gap-3">
-            <div class="p-2 rounded-lg bg-primary/10 text-primary">
+          <div class="flex items-center gap-3 min-w-0">
+            <div 
+              class="p-2 rounded-lg shrink-0"
+              :class="acc.is_owner ? 'bg-primary/10 text-primary' : 'bg-muted text-muted-foreground'"
+            >
               <Wallet class="w-4 h-4" />
             </div>
-            <div class="flex flex-col">
-              <span class="font-semibold text-sm">{{ acc.title }}</span>
-              <span class="text-xs text-muted-foreground">{{ acc.currency.code }}</span>
+            <div class="flex flex-col min-w-0">
+              <div class="flex items-center gap-2">
+                <span class="font-semibold text-sm truncate">{{ acc.title }}</span>
+                <Users v-if="!acc.is_owner" class="w-3 h-3 text-muted-foreground shrink-0" />
+              </div>
+              <span class="text-[10px] font-black uppercase tracking-widest text-muted-foreground/60">
+                {{ acc.currency.code }}
+                <template v-if="!acc.is_owner"> • Shared</template>
+              </span>
             </div>
           </div>
 
           <div class="flex items-center gap-4">
-            <div class="text-right">
+            <div class="text-right whitespace-nowrap">
               <span class="font-mono font-bold text-sm">
                 {{ Number(acc.balance || 0).toLocaleString(undefined, { minimumFractionDigits: 2 }) }}
               </span>
               <span class="text-xs ml-1 text-muted-foreground">{{ acc.currency.symbol }}</span>
             </div>
             
-            <Button variant="ghost" size="icon" class="h-8 w-8 text-muted-foreground hover:text-destructive" @click="openDeleteModal(acc)">
-              <Trash2 class="w-4 h-4" />
-            </Button>
+            <div class="flex items-center gap-1">
+              <Button 
+                variant="ghost" 
+                size="icon" 
+                class="h-8 w-8 text-muted-foreground hover:text-blue-500 transition-colors" 
+                @click="openInfo(acc)"
+              >
+                <InfoIcon class="w-4 h-4" />
+              </Button>
+
+              <div class="w-8 h-8 flex items-center justify-center">
+                <Button 
+                  v-if="acc.is_owner"
+                  variant="ghost" 
+                  size="icon" 
+                  class="h-8 w-8 text-muted-foreground hover:text-destructive transition-colors" 
+                  @click="openDeleteModal(acc)"
+                >
+                  <Trash2 class="w-4 h-4" />
+                </Button>
+                <div v-else class="flex items-center justify-center text-muted-foreground/30">
+                  <Users v-underline class="w-3.5 h-3.5" title="Shared account" />
+                </div>
+              </div>
+            </div>
           </div>
         </div>
 
@@ -116,6 +161,27 @@ onMounted(() => loadAccounts())
     </div>
 
     <AddAccountModal :show="showAddModal" @close="showAddModal = false" @created="handleAdd" />
-    <DeleteAccountModal :show="showDeleteModal" :title="deletingAccount?.title" @close="showDeleteModal = false" @confirm="confirmDelete" />
+    <DeleteModal
+      :show="showDeleteModal"
+      :entity-title="deletingAccount?.title" 
+      description="This will delete all transactions linked to this account."
+      @close="showDeleteModal = false" 
+      @confirm="confirmDelete"
+    />
+    <AccountInfoModal 
+      :show="showInfoModal" 
+      :account-id="selectedAccountId" 
+      @close="showInfoModal = false" 
+    />
   </div>
 </template>
+
+<style scoped>
+.custom-scrollbar::-webkit-scrollbar {
+  width: 4px;
+}
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: var(--border);
+  border-radius: 10px;
+}
+</style>

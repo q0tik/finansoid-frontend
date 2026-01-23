@@ -12,16 +12,19 @@ import {
   AccordionTrigger 
 } from '@/components/ui/accordion'
 
-import AccountsTable from '@/components/AccountsTable.vue'
-import ProfilesTable from '@/components/ProfilesTable.vue'
-import CategoriesTable from '@/components/CategoriesTable.vue'
-import CurrenciesTable from '@/components/CurrenciesTable.vue'
+import AccountsTable from '@/components/account/AccountsTable.vue'
+import ProfilesTable from '@/components/profile/ProfilesTable.vue'
+import CategoriesTable from '@/components/category/CategoriesTable.vue'
+import CurrenciesTable from '@/components/currency/CurrenciesTable.vue'
+import ProfileHeader from '@/components/profile/ProfileHeader.vue'
 </script>
 
 <template>
   <div class="min-h-full bg-background pb-28 pt-4 transition-colors duration-300">
     
     <div class="px-4 space-y-4">
+      <ProfileHeader />
+
       <Accordion type="single" collapsible class="w-full space-y-3">
         
         <AccordionItem value="profiles" class="border rounded-xl bg-card px-4 border-border/50 shadow-sm overflow-hidden">

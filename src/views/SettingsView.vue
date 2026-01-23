@@ -23,7 +23,7 @@ const currentTheme = ref(localStorage.getItem('user-theme') || 'light')
         :is-open="openSection === 'theme'"
         @toggle="openSection = openSection === 'theme' ? null : 'theme'"
       >
-        <ThemeSelector v-model="currentTheme" :themes="['light', 'dark', 'mint', 'desert']" />
+        <ThemeSelector v-model="currentTheme" :themes="['light', 'dark', 'mint', 'desert', 'frost']" />
       </SettingsCard>
 
       <SettingsCard 

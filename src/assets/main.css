@@ -5,6 +5,16 @@
 @custom-variant dark (&:is(.dark *));
 
 html, body, #app {
+  /* Запрещает двойной тап для зума, но оставляет прокрутку и обычные нажатия */
+  touch-action: manipulation;
+  
+  /* Дополнительно: убирает синий блик при нажатии на ссылки в Safari/Chrome */
+  -webkit-tap-highlight-color: transparent;
+  
+  /* Запрещает выделение текста везде, кроме инпутов (опционально, но круто для UI) */
+  -webkit-user-select: none;
+  user-select: none;
+  
   width: 100%;
   height: 100%;
   margin: 0;

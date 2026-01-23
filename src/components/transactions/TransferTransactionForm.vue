@@ -4,7 +4,7 @@ import { getAccountsDropdown } from '@/api/accounts'
 import { createTransaction } from '@/api/transactions'
 import { ChevronDown, Check, Wallet, ArrowDownUp, RefreshCw, MessageSquare, Loader2 } from 'lucide-vue-next'
 import { Button } from '@/components/ui/button'
-import SuccessToast from '@/components/ui/SuccessToast.vue' // 1. ИМПОРТ
+import Toast from '@/components/Toast.vue' // 1. ИМПОРТ
 
 const showToast = ref(false) // 2. СОСТОЯНИЕ
 
@@ -128,7 +128,7 @@ onMounted(loadData)
     <span class="text-sm">Loading accounts...</span>
   </div>
 
-  <form v-else @submit.prevent="handleSubmit" class="space-y-6 pt-2">
+  <form v-else @submit.prevent="handleSubmit" class="space-y-6 pt-2 pb-20">
     <div class="relative group">
       <div class="bg-card border-2 border-border rounded-3xl p-6 transition-all duration-300 group-within:border-blue-500/40 group-within:shadow-[0_0_20px_rgba(59,130,246,0.05)]">
         <label class="text-[10px] font-black uppercase tracking-[0.2em] text-muted-foreground/60 block text-center mb-2">
@@ -308,7 +308,7 @@ onMounted(loadData)
       Transfer Money
     </Button>
 
-    <SuccessToast 
+    <Toast 
       :show="showToast" 
       message="Transfer successful!" 
       @close="showToast = false" 

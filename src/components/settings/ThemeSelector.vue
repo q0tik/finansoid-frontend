@@ -12,8 +12,9 @@ const emit = defineEmits(['update:modelValue'])
 const themeColors = {
   light: 'bg-white border-gray-200',
   dark: 'bg-slate-900 border-slate-800',
-  mint: 'bg-[#f5fff9] border-[#d1f2e1]',
-  desert: 'bg-[#fffaf0] border-[#f0e4d0]'
+  mint: 'bg-[oklch(0.85_0.15_165)] border-[oklch(0.75_0.15_165)]',
+  desert: 'bg-[oklch(0.85_0.1_75)] border-[oklch(0.75_0.1_75)]',
+  frost: 'bg-[oklch(0.85_0.12_240)] border-[oklch(0.75_0.12_240)]'
 }
 
 const setTheme = (theme) => {

@@ -4,7 +4,7 @@ import { Trash2, Plus, Loader2, Tag, TrendingUp, TrendingDown } from 'lucide-vue
 import { getCategories, createCategory, deleteCategory } from '@/api/categories'
 import { Button } from '@/components/ui/button'
 
-import AddCategoryModal from '@/components/AddCategoryModal.vue'
+import AddCategoryModal from '@/components/category/AddCategoryModal.vue'
 import ConfirmModal from '@/components/ConfirmModal.vue'
 
 const categories = ref([])
