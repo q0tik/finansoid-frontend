@@ -5,7 +5,7 @@ import { getCategories } from '@/api/categories'
 import { createTransaction } from '@/api/transactions'
 import { ChevronDown, Check, Wallet, Tag, MessageSquare, Loader2 } from 'lucide-vue-next'
 import { Button } from '@/components/ui/button'
-import SuccessToast from '@/components/ui/SuccessToast.vue'
+import Toast from '@/components/Toast.vue'
 
 const showToast = ref(false)
 
@@ -101,7 +101,7 @@ onMounted(loadData)
     <span class="text-sm">Loading data...</span>
   </div>
 
-  <form v-else @submit.prevent="handleSubmit" class="space-y-6 pt-2">
+  <form v-else @submit.prevent="handleSubmit" class="space-y-6 pt-2 pb-20">
     
     <div class="relative group">
       <div 
@@ -238,7 +238,7 @@ onMounted(loadData)
       Create Expense
     </Button>
 
-    <SuccessToast 
+    <Toast 
       :show="showToast" 
       message="Expense saved!" 
       @close="showToast = false" 

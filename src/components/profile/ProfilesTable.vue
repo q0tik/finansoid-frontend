@@ -1,24 +1,27 @@
 <script setup lang="ts">
 import { ref, onMounted, watch } from 'vue'
-import { Trash2, Plus, CheckCircle2, Loader2 } from 'lucide-vue-next'
+// Добавлен Info в импорт
+import { Trash2, Plus, CheckCircle2, Loader2, Info } from 'lucide-vue-next'
 import { useProfileStore } from '@/stores/profileStore'
 import { createProfile, deleteProfile } from '@/api/profiles'
 import { Button } from '@/components/ui/button'
 
-import AddProfileModal from '@/components/AddProfileModal.vue'
-import DeleteProfileModal from '@/components/DeleteProfileModal.vue'
+import AddProfileModal from '@/components/profile/AddProfileModal.vue'
+import DeleteModal from '@/components/DeleteModal.vue'
+import ProfileInfoModal from '@/components/profile/ProfileInfoModal.vue' // Импорт модалки
 
 const store = useProfileStore()
 
 const showAddModal = ref(false)
 const showDeleteModal = ref(false)
+const showInfoModal = ref(false) // Состояние модалки инфо
+const selectedInfoId = ref<string | null>(null) // ID профиля для модалки
 const deletingProfile = ref<any>(null)
 
 const isFetchingMore = ref(false)
 const allLoaded = ref(false)
-const perPage = 10 // Увеличим для удобства
+const perPage = 10 
 
-// Следим за активным профилем из стора, чтобы данные всегда были актуальны
 const activeProfileId = ref(store.activeProfile)
 watch(() => store.activeProfile, (newId) => {
   activeProfileId.value = newId
@@ -28,6 +31,12 @@ function selectProfile(id: string) {
   store.setActiveProfile(id)
 }
 
+// Открытие инфо
+function openInfo(id: string) {
+  selectedInfoId.value = id
+  showInfoModal.value = true
+}
+
 function openDeleteModal(profile: any) {
   deletingProfile.value = profile
   showDeleteModal.value = true
@@ -35,15 +44,12 @@ function openDeleteModal(profile: any) {
 
 async function loadProfiles(append = false) {
   if (allLoaded.value && append) return
-
   const currentPage = append ? Math.ceil(store.profiles.length / perPage) + 1 : 1
-  
   const result = await store.fetchProfiles({ 
     page: currentPage, 
     perPage: perPage,
     append: append 
   })
-
   if (result && result.length < perPage) {
     allLoaded.value = true
   }
@@ -116,15 +122,26 @@ onMounted(() => {
             </div>
           </div>
 
-          <Button
-            v-if="index !== 0"
-            variant="ghost"
-            size="icon"
-            class="h-9 w-9 text-muted-foreground/30 hover:text-destructive hover:bg-destructive/10 rounded-xl transition-colors"
-            @click.stop="openDeleteModal(p)"
-          >
-            <Trash2 class="w-4 h-4" />
-          </Button>
+          <div class="flex items-center gap-1">
+            <Button
+              variant="ghost"
+              size="icon"
+              class="h-9 w-9 text-muted-foreground/30 hover:text-primary hover:bg-primary/10 rounded-xl transition-colors"
+              @click.stop="openInfo(p.id)"
+            >
+              <Info class="w-4 h-4" />
+            </Button>
+
+            <Button
+              v-if="index !== 0"
+              variant="ghost"
+              size="icon"
+              class="h-9 w-9 text-muted-foreground/30 hover:text-destructive hover:bg-destructive/10 rounded-xl transition-colors"
+              @click.stop="openDeleteModal(p)"
+            >
+              <Trash2 class="w-4 h-4" />
+            </Button>
+          </div>
         </div>
 
         <div v-if="isFetchingMore" class="flex justify-center py-4">
@@ -143,7 +160,18 @@ onMounted(() => {
     </div>
 
     <AddProfileModal :show="showAddModal" @close="showAddModal = false" @created="handleAdd" />
-    <DeleteProfileModal :show="showDeleteModal" :profile-title="deletingProfile?.title" @close="showDeleteModal = false" @confirm="confirmDelete" />
+    <DeleteModal
+      :show="showDeleteModal" 
+      :entity-title="deletingProfile?.title" 
+      description="This will permanently delete the profile and all associated data."
+      @close="showDeleteModal = false"
+      @confirm="confirmDelete" 
+    />
+    <ProfileInfoModal 
+      :show="showInfoModal" 
+      :profile-id="selectedInfoId" 
+      @close="showInfoModal = false" 
+    />
   </div>
 </template>
 

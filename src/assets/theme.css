@@ -92,4 +92,25 @@
     --input: oklch(0.85 0.08 70);
     --ring: oklch(0.55 0.12 50 / 20%);
   }
+
+  [data-theme="frost"] {
+    /* Фон свежего снега с легким голубым оттенком */
+    --background: oklch(0.97 0.015 240);
+    --foreground: oklch(0.25 0.08 245);
+    
+    /* Карточки как тонкий лед */
+    --card: oklch(0.93 0.03 240);
+    --card-foreground: oklch(0.2 0.08 250);
+    
+    /* Основной акцент: яркий арктический синий */
+    --primary: oklch(0.55 0.18 240);
+    --primary-foreground: oklch(0.99 0.01 240);
+    
+    /* Вторичные ледяные элементы */
+    --muted: oklch(0.88 0.05 240);
+    --muted-foreground: oklch(0.45 0.1 245);
+    --border: oklch(0.82 0.06 240);
+    --input: oklch(0.82 0.06 240);
+    --ring: oklch(0.55 0.18 240 / 25%);
+  }
 }

@@ -5,7 +5,7 @@ import { getCurrencies, createCurrency, deleteCurrency } from '@/api/currencies'
 import { Button } from '@/components/ui/button'
 
 // Импортируем компоненты
-import AddCurrencyModal from '@/components/AddCurrencyModal.vue'
+import AddCurrencyModal from '@/components/currency/AddCurrencyModal.vue'
 import ConfirmModal from '@/components/ConfirmModal.vue'
 
 const currencies = ref([])

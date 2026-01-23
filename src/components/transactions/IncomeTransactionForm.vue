@@ -6,7 +6,7 @@ import { createTransaction } from '@/api/transactions'
 import { ChevronDown, Check, Wallet, Tag, MessageSquare, Loader2, TrendingUp } from 'lucide-vue-next'
 import { Button } from '@/components/ui/button'
 // 1. Импортируем тост
-import SuccessToast from '@/components/ui/SuccessToast.vue'
+import Toast from '@/components/Toast.vue'
 
 const showToast = ref(false)
 const LAST_ACCOUNT_KEY_INCOME = 'last_selected_account_income'
@@ -92,7 +92,7 @@ onMounted(loadData)
     <span class="text-sm text-emerald-500/50">Loading income categories...</span>
   </div>
 
-  <form v-else @submit.prevent="handleSubmit" class="space-y-6 pt-2">
+  <form v-else @submit.prevent="handleSubmit" class="space-y-6 pt-2 pb-20">
     <div class="relative group">
       <div 
         class="bg-card border-2 border-border rounded-3xl p-6 transition-all duration-300 group-within:border-emerald-500/40 group-within:shadow-[0_0_20px_rgba(16,185,129,0.05)]"
@@ -216,7 +216,7 @@ onMounted(loadData)
       Add Income
     </Button>
 
-    <SuccessToast 
+    <Toast 
       :show="showToast" 
       message="Income added successfully!" 
       @close="showToast = false" 
