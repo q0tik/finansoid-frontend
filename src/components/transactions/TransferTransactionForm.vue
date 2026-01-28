@@ -36,9 +36,8 @@ const needsExchange = computed(() => {
 // Загрузка данных
 async function loadData() {
   loading.value = true
-  const profileId = localStorage.getItem('active_profile')
   try {
-    const res = await getAccountsDropdown(profileId)
+    const res = await getAccountsDropdown()
     accounts.value = res.accounts_short
     if (accounts.value.length > 0) fromAccountId.value = accounts.value[0].id
     if (accounts.value.length > 1) toAccountId.value = accounts.value[1].id

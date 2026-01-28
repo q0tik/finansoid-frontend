@@ -25,7 +25,6 @@ async function handleSubmit() {
   if (!title.value.trim() || !currencyId.value) return
   
   emits('created', {
-    profile_id: localStorage.getItem('active_profile'),
     title: title.value.trim(),
     currency_id: currencyId.value,
     saldo: balance.value || '0',

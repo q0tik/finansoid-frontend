@@ -9,7 +9,7 @@ const props = defineProps({
   label: { type: String, default: 'Entity ID' },
   placeholder: { type: String, default: 'UUID...' },
   buttonText: { type: String, default: 'Invite' },
-  icon: { type: Object, default: UserPlus } // Можно передать другую иконку
+  icon: { type: [Object, Function], default: UserPlus } // Можно передать другую иконку
 })
 
 const emit = defineEmits(['close', 'submit'])

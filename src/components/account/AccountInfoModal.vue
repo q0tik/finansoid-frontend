@@ -29,8 +29,7 @@ const titleInput = ref(null)
 async function fetchData() {
   if (!props.accountId) return
   loading.value = true
-  const profileId = localStorage.getItem('active_profile')
-  const res = await getAccountById(props.accountId, profileId)
+  const res = await getAccountById(props.accountId)
   if (res.success) {
     accountData.value = res.account
     editedTitle.value = res.account.title
@@ -54,8 +53,7 @@ const saveTitle = async () => {
 
   try {
     editLoading.value = true
-    const profileId = localStorage.getItem('active_profile')
-    const res = await editAccountById(props.accountId, profileId, editedTitle.value)
+    const res = await editAccountById(props.accountId, editedTitle.value)
     
     if (res?.success) {
       accountData.value.title = editedTitle.value
@@ -76,13 +74,9 @@ const saveTitle = async () => {
 const handleAddProfile = async (targetProfileId, callback) => {
   if (!props.accountId) return
   
-  // Достаем текущий активный профиль для авторизации действия на бэкенде
-  const activeProfileId = localStorage.getItem('active_profile')
-  
   // Вызываем твой метод: (id аккаунта, текущий профиль, приглашаемый профиль)
   const res = await addProfileToAccount(
     props.accountId, 
-    activeProfileId, 
     targetProfileId
   )
   

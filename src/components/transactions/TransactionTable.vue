@@ -93,9 +93,8 @@ async function loadTransactions() {
 }
 
 onMounted(async () => {
-  const profileId = localStorage.getItem('active_profile')
   try {
-    const accs = await getAccountsDropdown(profileId)
+    const accs = await getAccountsDropdown()
     accounts.value = accs.accounts_short
   } catch (e) { console.error(e) }
 

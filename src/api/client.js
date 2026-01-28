@@ -1,7 +1,9 @@
 import axios from 'axios'
 import router from '@/router'
+import { useProfileStore } from '@/stores/profileStore'
 
 let refreshInProgress = false
+
 
 const api = axios.create({
   baseURL: import.meta.env.VITE_BACKEND_URL,
@@ -26,6 +28,19 @@ export async function refreshToken() {
     return { success: false, unauthorized: true }
   }
 }
+
+api.interceptors.request.use((config) => {
+  const store = useProfileStore() // Вызываем внутри, чтобы Pinia уже точно работала
+  
+  // Если в сторе есть активный профиль — лепим его в заголовки
+  if (store.activeProfile) {
+    config.headers['X-Profile-ID'] = store.activeProfile
+  }
+  
+  return config
+}, (error) => {
+  return Promise.reject(error)
+})
 
 api.interceptors.response.use(
   (res) => res,

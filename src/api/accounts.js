@@ -1,10 +1,10 @@
 import api from "./client";
 
 // Получить список счет (GET /finansoid-api/v1/accounts?page=1&per_page=10)
-export async function getAccounts(profile_id, page = 1, perPage = 10) {
+export async function getAccounts( page = 1, perPage = 10) {
   try {
     const { data } = await api.get('/finansoid-api/v1/accounts', {
-      params: { profile_id, page, per_page: perPage },
+      params: { page, per_page: perPage },
     })
     return data
   } catch (err) {
@@ -14,11 +14,9 @@ export async function getAccounts(profile_id, page = 1, perPage = 10) {
 }
 
 // Получить список счетов для дропдауна (GET /finansoid-api/v1/accounts/dropdown?profile_id=1)
-export async function getAccountsDropdown(profile_id) {
+export async function getAccountsDropdown() {
   try {
-    const { data } = await api.get('/finansoid-api/v1/accounts/dropdown', {
-      params: { profile_id },
-    })
+    const { data } = await api.get('/finansoid-api/v1/accounts/dropdown')
     return data
   } catch (err) {
     console.error('getAccountsDropdown() failed:', err)
@@ -27,9 +25,9 @@ export async function getAccountsDropdown(profile_id) {
 }
 
 // Создать счет (POST /finansoid-api/v1/accounts)
-export async function createAccount(profile_id, title, currency_id, saldo) {
+export async function createAccount( title, currency_id, saldo) {
   try {
-    const { data } = await api.post('/finansoid-api/v1/accounts', { profile_id, title, currency_id, saldo })
+    const { data } = await api.post('/finansoid-api/v1/accounts', {  title, currency_id, saldo })
     return data
   } catch (err) {
     console.error('createAccount() failed:', err)
@@ -90,9 +88,9 @@ export async function getAccountById(id, profile_id) {
 }
 
 // Получить счет по id (PUT /finansoid-api/v1/accounts/{id})
-export async function editAccountById(id, profile_id, title) {
+export async function editAccountById(id, title) {
   try {
-    const { data } = await api.put(`/finansoid-api/v1/accounts/${id}`, { profile_id, title })
+    const { data } = await api.put(`/finansoid-api/v1/accounts/${id}`, { title })
     /*
     Example response
     {
@@ -107,9 +105,9 @@ export async function editAccountById(id, profile_id, title) {
 }
 
 // Добавить профиль к счету (POST /finansoid-api/v1/accounts/{id}/profile)
-export async function addProfileToAccount(id, profile_id, new_profile_id) {
+export async function addProfileToAccount(id, new_profile_id) {
   try {
-    const { data } = await api.post(`/finansoid-api/v1/accounts/${id}/profile`, { profile_id, new_profile_id })
+    const { data } = await api.post(`/finansoid-api/v1/accounts/${id}/profile`, { new_profile_id })
     /*
     Example response
     {

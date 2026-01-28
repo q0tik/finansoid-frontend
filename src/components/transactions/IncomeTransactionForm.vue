@@ -31,7 +31,7 @@ async function loadData() {
   try {
     const [cats, accs] = await Promise.all([
       getCategories(profileId, 1, 100, true), 
-      getAccountsDropdown(profileId),
+      getAccountsDropdown(),
     ])
     categories.value = cats.categories
     accounts.value = accs.accounts_short

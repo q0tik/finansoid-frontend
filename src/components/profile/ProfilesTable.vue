@@ -162,7 +162,7 @@ onMounted(() => {
     <AddProfileModal :show="showAddModal" @close="showAddModal = false" @created="handleAdd" />
     <DeleteModal
       :show="showDeleteModal" 
-      :entity-title="deletingProfile?.title" 
+      :entity-title="deletingProfile?.title || ''" 
       description="This will permanently delete the profile and all associated data."
       @close="showDeleteModal = false"
       @confirm="confirmDelete" 

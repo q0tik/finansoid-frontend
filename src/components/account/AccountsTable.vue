@@ -27,10 +27,9 @@ function openInfo(acc) {
 }
 
 async function loadAccounts(append = false) {
-  const profileId = localStorage.getItem('active_profile')
   if (!append) loading.value = true
   
-  const response = await getAccounts(profileId, append ? page.value + 1 : 1, perPage)
+  const response = await getAccounts( append ? page.value + 1 : 1, perPage)
   
   if (response.success) {
     if (append) {
@@ -56,7 +55,7 @@ async function handleScroll(event: Event) {
 }
 
 async function handleAdd(data) {
-  await createAccount(data.profile_id, data.title, data.currency_id, data.saldo)
+  await createAccount( data.title, data.currency_id, data.saldo)
   allLoaded.value = false
   await loadAccounts(false)
 }
@@ -143,7 +142,7 @@ onMounted(() => loadAccounts())
                   <Trash2 class="w-4 h-4" />
                 </Button>
                 <div v-else class="flex items-center justify-center text-muted-foreground/30">
-                  <Users v-underline class="w-3.5 h-3.5" title="Shared account" />
+                  <Users class="w-3.5 h-3.5" title="Shared account" />
                 </div>
               </div>
             </div>
@@ -163,7 +162,7 @@ onMounted(() => loadAccounts())
     <AddAccountModal :show="showAddModal" @close="showAddModal = false" @created="handleAdd" />
     <DeleteModal
       :show="showDeleteModal"
-      :entity-title="deletingAccount?.title" 
+      :entity-title="deletingAccount?.title || ''" 
       description="This will delete all transactions linked to this account."
       @close="showDeleteModal = false" 
       @confirm="confirmDelete"
