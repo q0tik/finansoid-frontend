@@ -3,9 +3,6 @@ import { ref } from 'vue'
 import { Send, Loader2, CheckCircle2, Bug, Lightbulb, MessageCircle } from 'lucide-vue-next'
 import { Button } from '@/components/ui/button'
 import { createFeedback } from '@/api/feedback'
-import { useProfileStore } from '@/stores/profileStore'
-
-const profileStore = useProfileStore()
 
 const feedbackText = ref('')
 const feedbackType = ref('bug') // 'bug', 'feature', 'other'
@@ -24,7 +21,6 @@ const submit = async () => {
   
   try {
     const res = await createFeedback(
-      profileStore.activeProfile, 
       feedbackText.value, 
       feedbackType.value
     )

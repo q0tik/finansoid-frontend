@@ -1,10 +1,10 @@
 import api from "./client";
 
 // Получить список валют (GET /finansoid-api/v1/currencies?page=1&per_page=10)
-export async function getCurrencies(profile_id, page = 1, perPage = 10) {
+export async function getCurrencies(page = 1, perPage = 10) {
   try {
     const { data } = await api.get('/finansoid-api/v1/currencies', {
-      params: { profile_id, page, per_page: perPage },
+      params: { page, per_page: perPage },
     })
     /*
     Example response:
@@ -26,11 +26,9 @@ export async function getCurrencies(profile_id, page = 1, perPage = 10) {
 }
 
 // Получить список валют для дропдауна (GET /finansoid-api/v1/currencies/dropdown?profile_id=1)
-export async function getCurrenciesDropdown(profile_id) {
+export async function getCurrenciesDropdown() {
   try {
-    const { data } = await api.get('/finansoid-api/v1/currencies/dropdown', {
-      params: { profile_id },
-    })
+    const { data } = await api.get('/finansoid-api/v1/currencies/dropdown')
     return data
   } catch (err) {
     console.error('getCurrencies() failed:', err)
@@ -40,9 +38,9 @@ export async function getCurrenciesDropdown(profile_id) {
 
 
 // Создать валюту (POST /finansoid-api/v1/currencies)
-export async function createCurrency(profile_id, title, code, symbol, decimal_digits) {
+export async function createCurrency(title, code, symbol, decimal_digits) {
   try {
-    const { data } = await api.post('/finansoid-api/v1/currencies', { profile_id, title, code, symbol, decimal_digits })
+    const { data } = await api.post('/finansoid-api/v1/currencies', { title, code, symbol, decimal_digits })
     return data
   } catch (err) {
     console.error('createCurrency() failed:', err)

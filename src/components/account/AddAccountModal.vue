@@ -43,7 +43,7 @@ function resetForm() {
 watch(() => props.show, async (open) => {
   if (open) {
     try {
-      const res = await getCurrenciesDropdown(localStorage.getItem('active_profile'))
+      const res = await getCurrenciesDropdown()
       currencies.value = res.currencies_short
       
       const rub = currencies.value.find(c => c.code === 'RUB')

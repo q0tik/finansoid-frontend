@@ -27,10 +27,9 @@ const accountSymbol = computed(() => selectedAccount.value?.currency_symbol || '
 
 async function loadData() {
   loading.value = true
-  const profileId = localStorage.getItem('active_profile')
   try {
     const [cats, accs] = await Promise.all([
-      getCategories(profileId, 1, 100, true), 
+      getCategories(1, 100, true), 
       getAccountsDropdown(),
     ])
     categories.value = cats.categories
@@ -52,14 +51,17 @@ async function loadData() {
 async function handleSubmit() {
   if (!amount.value || !categoryId.value || !toAccountId.value) return
   try {
-    await createTransaction(
-      amount.value.toString(),
-      categoryId.value,
-      null,
-      toAccountId.value,
-      null,
-      comment.value || null,
-    )
+    await createTransaction({
+      category_id: categoryId.value,
+      comment: comment.value || null,
+      entries: [
+        {
+          account_id: toAccountId.value,
+          amount: Math.abs(parseFloat(amount.value)),
+          type_id: 2,
+        }
+      ]
+    })
     
     // 2. Показываем успех и сбрасываем поля
     showToast.value = true

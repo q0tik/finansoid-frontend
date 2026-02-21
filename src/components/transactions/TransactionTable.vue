@@ -67,10 +67,8 @@ async function loadTransactions() {
   loading.value = true
   if (!isInitialLoad.value) await sleep(800)
 
-  const profileId = localStorage.getItem('active_profile')
   try {
     const res = await getTransactions(
-      profileId, 
       page.value, 
       perPage, 
       accountId.value, 
@@ -123,11 +121,34 @@ const groupedTransactions = computed(() => {
 function getTxType(tx) {
   // Если бэк явно говорит, что это трансфер через категорию (is_income === null)
   // или если заполнены оба аккаунта (откуда и куда)
-  if (tx.category?.is_income === null || (tx.from_account_id && tx.to_account_id)) {
+  if (tx.category?.title.toLowerCase() === 'transfer') {
     return 'transfer'
   }
   if (tx.category?.is_income) return 'income'
   return 'expense'
+}
+
+function getAmountString(tx) {
+  const type = getTxType(tx);
+  
+  // Функция для отсечения до 2 знаков БЕЗ округления
+  const truncate = (val) => {
+    const num = Math.abs(val);
+    // Используем 100 для двух знаков после запятой
+    return Math.trunc(num * 100) / 100;
+  };
+
+  if (type === 'transfer') {
+    return `${truncate(tx.from_amount)} ${tx.currency_from_symbol} → ${truncate(tx.to_amount)} ${tx.currency_to_symbol}`;
+  }
+
+  const isIncome = type === 'income';
+  const symbol = isIncome ? tx.currency_to_symbol : tx.currency_from_symbol;
+  const amount = isIncome ? tx.to_amount : tx.from_amount;
+  
+  const prefix = isIncome ? '+' : '-';
+  
+  return `${prefix}${truncate(amount)} ${symbol || ''}`.trim();
 }
 
 function formatTime(utcString) {
@@ -246,7 +267,8 @@ const observerTarget = ref(null)
             </div>
             <div class="flex items-center gap-3 shrink-0 text-right">
               <div :class="['font-black text-base', getTxType(tx) === 'income' ? 'text-emerald-500' : getTxType(tx) === 'expense' ? 'text-red-500' : 'text-foreground']">
-                {{ getTxType(tx) === 'income' ? '+' : getTxType(tx) === 'expense' ? '-' : '' }}{{ tx.amount }} {{ tx.currency_to_symbol }}
+                <!-- {{ getTxType(tx) === 'income' ? '+' + tx.amount + ' ' + (tx.currency_to_symbol || '') : getTxType(tx) === 'expense' ? tx.amount + ' ' + (tx.currency_from_symbol || '') : tx.amount }} -->
+                {{ getAmountString(tx) }}
               </div>
               <button @click="alert('Delete?')" class="p-2 -mr-2 text-muted-foreground/10 group-hover:text-red-500/50 hover:!text-red-500 transition-colors">
                 <Trash2 class="w-4 h-4" />

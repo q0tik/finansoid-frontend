@@ -24,7 +24,6 @@ function handleSubmit() {
   }
 
   emits('created', {
-    profile_id: localStorage.getItem('active_profile'),
     title: title.value.trim(),
     code: code.value.trim().toUpperCase(),
     symbol: symbol.value.trim(),

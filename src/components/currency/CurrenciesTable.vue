@@ -22,10 +22,9 @@ const itemToDelete = ref(null)
 
 // --- Логика загрузки (Infinite Scroll) ---
 async function loadCurrencies(append = false) {
-  const profileId = localStorage.getItem('active_profile')
   if (!append) loading.value = true
   
-  const response = await getCurrencies(profileId, append ? page.value + 1 : 1, perPage)
+  const response = await getCurrencies(append ? page.value + 1 : 1, perPage)
   
   if (response.success) {
     if (append) {
@@ -53,7 +52,6 @@ async function handleScroll(event) {
 // --- Логика создания ---
 async function handleAdd(data) {
   await createCurrency(
-    data.profile_id,
     data.title,
     data.code,
     data.symbol,

@@ -21,11 +21,9 @@ const showDeleteModal = ref(false)
 const itemToDelete = ref(null)
 
 async function loadCategories(append = false) {
-  const profileId = localStorage.getItem('active_profile')
   if (!append) loading.value = true
   
   const response = await getCategories(
-    profileId, 
     append ? page.value + 1 : 1, 
     perPage, 
     isIncomeFilter.value
@@ -60,7 +58,7 @@ function toggleFilter(val) {
 }
 
 async function handleAdd(catData) {
-  await createCategory(catData.profile_id, catData.title, catData.is_income)
+  await createCategory(catData.title, catData.is_income)
   allLoaded.value = false
   await loadCategories(false)
 }

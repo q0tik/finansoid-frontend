@@ -18,7 +18,6 @@ function handleSubmit() {
   if (!title.value.trim()) return
   
   emits('created', {
-    profile_id: localStorage.getItem('active_profile'),
     title: title.value.trim(),
     is_income: isIncome.value,
   })

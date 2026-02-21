@@ -7,6 +7,7 @@ import { Button } from '@/components/ui/button'
 import Toast from '@/components/Toast.vue' // 1. ИМПОРТ
 
 const showToast = ref(false) // 2. СОСТОЯНИЕ
+const TRANSFER_CATEGORY_ID = '00000000-0000-0000-0000-000000000000'
 
 // State
 const amount = ref('')          // Сколько отправляем
@@ -92,23 +93,34 @@ const selectTo = (id) => {
 
 async function handleSubmit() {
   if (!amount.value || !fromAccountId.value || !toAccountId.value) return
-  const finalRate = needsExchange.value ? exchangeRate.value : '1'
-  if (needsExchange.value && !finalRate) {
+  if (needsExchange.value && !receivedAmount.value) {
     alert('Please specify exchange rate or received amount')
     return
   }
   try {
-    await createTransaction(
-      amount.value.toString(),
-      null, 
-      fromAccountId.value,
-      toAccountId.value,
-      finalRate.toString(),
-      comment.value || null,
-    )
-    
-    showToast.value = true // 3. ВКЛЮЧАЕМ ТОСТ
-    
+    const destinationAmount = needsExchange.value
+      ? Math.abs(parseFloat(receivedAmount.value))
+      : Math.abs(parseFloat(amount.value))
+
+    await createTransaction({
+      category_id: TRANSFER_CATEGORY_ID,
+      comment: comment.value || null,
+      entries: [
+        {
+          account_id: fromAccountId.value,
+          amount: -Math.abs(parseFloat(amount.value)),
+          type_id: 1,
+        },
+        {
+          account_id: toAccountId.value,
+          amount: destinationAmount,
+          type_id: 2,
+        }
+      ]
+    })
+
+    showToast.value = true
+
     amount.value = ''
     receivedAmount.value = ''
     exchangeRate.value = ''

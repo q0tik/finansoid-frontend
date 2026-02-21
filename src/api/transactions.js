@@ -1,10 +1,10 @@
 import api from "./client";
 
 // Получить список транзакций (GET /finansoid-api/v1/transactions?page=1&per_page=10)
-export async function getTransactions(profile_id, page = 1, perPage = 10, is_income = null, account_id = null) {
+export async function getTransactions(page = 1, perPage = 10, is_income = null, account_id = null) {
   try {
     const { data } = await api.get('/finansoid-api/v1/transactions', {
-      params: { profile_id, page, per_page: perPage, is_income },
+      params: { page, per_page: perPage, is_income },
     })
     /*
     Example response:
@@ -61,12 +61,12 @@ export async function getTransactions(profile_id, page = 1, perPage = 10, is_inc
 }
 
 // Создать транзакцию (POST /finansoid-api/v1/transactions)
-export async function createTransaction(amount, category_id, from_account_id, to_account_id, exchange_rate, comment = null) {
+export async function createTransaction(payload) {
   try {
-    const { data } = await api.post('/finansoid-api/v1/transactions', { amount, category_id, from_account_id, to_account_id, exchange_rate, comment })
+    const { data } = await api.post('/finansoid-api/v1/transactions', payload)
     return data
   } catch (err) {
-    console.error('createCategory() failed:', err)
+    console.error('createTransaction() failed:', err)
     return { success: false }
   }
 }
