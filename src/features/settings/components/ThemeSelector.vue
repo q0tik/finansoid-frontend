@@ -1,0 +1,81 @@
+<script setup>
+import { Check } from 'lucide-vue-next'
+import { onMounted } from 'vue'
+
+const props = defineProps({
+  modelValue: String,
+  themes: Array
+})
+
+const emit = defineEmits(['update:modelValue'])
+
+const themeColors = {
+  light: 'bg-white border-gray-200',
+  dark: 'bg-slate-900 border-slate-800',
+  mint: 'bg-[oklch(0.85_0.15_165)] border-[oklch(0.75_0.15_165)]',
+  desert: 'bg-[oklch(0.85_0.1_75)] border-[oklch(0.75_0.1_75)]',
+  frost: 'bg-[oklch(0.85_0.12_240)] border-[oklch(0.75_0.12_240)]'
+}
+
+const setTheme = (theme) => {
+  emit('update:modelValue', theme)
+  
+  localStorage.setItem('user-theme', theme)
+
+  document.documentElement.classList.remove('dark')
+  document.documentElement.removeAttribute('data-theme')
+
+  if (theme === 'dark') {
+    document.documentElement.classList.add('dark')
+  } else if (theme !== 'light') {
+    document.documentElement.setAttribute('data-theme', theme)
+  }
+}
+
+onMounted(() => {
+  const activeDataTheme = document.documentElement.getAttribute('data-theme')
+  const isDark = document.documentElement.classList.contains('dark')
+
+  let currentTheme = 'light'
+  
+  if (activeDataTheme) {
+    currentTheme = activeDataTheme
+  } else if (isDark) {
+    currentTheme = 'dark'
+  }
+
+  if (props.modelValue !== currentTheme) {
+    emit('update:modelValue', currentTheme)
+  }
+})
+</script>
+
+<template>
+  <div class="grid grid-cols-2 gap-3 p-1">
+    <button
+      v-for="theme in themes"
+      :key="theme"
+      @click="setTheme(theme)"
+      class="relative flex items-center gap-3 p-3 rounded-xl border-2 transition-all active:scale-95"
+      :class="[
+        modelValue === theme 
+          ? 'border-primary bg-primary/5' 
+          : 'border-border bg-card hover:border-primary/30'
+      ]"
+    >
+      <div 
+        class="w-6 h-6 rounded-full border shadow-sm shrink-0"
+        :class="themeColors[theme]"
+      ></div>
+      
+      <span class="text-sm font-medium capitalize flex-1 text-left">
+        {{ $t('themes.' + theme) }}
+      </span>
+
+      <Check 
+        v-if="modelValue === theme" 
+        class="w-4 h-4 text-primary shrink-0" 
+      />
+    </button>
+  </div>
+</template>

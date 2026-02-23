@@ -1,16 +1,18 @@
 <script setup>
-import { ref } from 'vue'
-import ExpenseTransactionForm from '@/components/transactions/ExpenseTransactionForm.vue'
-import IncomeTransactionForm from '@/components/transactions/IncomeTransactionForm.vue'
-import TransferTransactionForm from '@/components/transactions/TransferTransactionForm.vue'
+import { ref, computed } from 'vue'
+import { useI18n } from 'vue-i18n'
+import ExpenseTransactionForm from '@/features/transactions/components/ExpenseTransactionForm.vue'
+import IncomeTransactionForm from '@/features/transactions/components/IncomeTransactionForm.vue'
+import TransferTransactionForm from '@/features/transactions/components/TransferTransactionForm.vue'
 
+const { t } = useI18n()
 const activeTab = ref('expense')
 
-const tabs = [
-  { key: 'expense', label: 'Expense' },
-  { key: 'income', label: 'Income' },
-  { key: 'transfer', label: 'Transfer' },
-]
+const tabs = computed(() => [
+  { key: 'expense', label: t('transaction.expense') },
+  { key: 'income',  label: t('transaction.income') },
+  { key: 'transfer', label: t('transaction.transfer') },
+])
 </script>
 
 <template>
@@ -22,8 +24,8 @@ const tabs = [
           :key="tab.key"
           @click="activeTab = tab.key"
           class="flex-1 py-2.5 text-sm font-bold rounded-xl transition-all duration-200"
-          :class="activeTab === tab.key 
-            ? 'bg-card shadow-sm text-primary scale-[1.02]' 
+          :class="activeTab === tab.key
+            ? 'bg-card shadow-sm text-primary scale-[1.02]'
             : 'text-muted-foreground hover:text-foreground'"
         >
           {{ tab.label }}

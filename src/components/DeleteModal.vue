@@ -5,12 +5,10 @@ import { Button } from '@/components/ui/button'
 
 const props = defineProps({
   show: Boolean,
-  // Название объекта (профиля или счета), которое нужно ввести для подтверждения
   entityTitle: {
     type: String,
     required: true
   },
-  // Кастомный текст описания (опционально)
   description: {
     type: String,
     default: ''
@@ -25,10 +23,9 @@ function handleConfirm() {
   if (confirmText.value.trim() !== props.entityTitle) return
   emits('confirm')
   confirmText.value = ''
-  emits(['close']) // Закрываем после подтверждения
+  emits(['close'])
 }
 
-// Очистка и фокус при открытии
 watch(() => props.show, (open) => {
   if (open) {
     confirmText.value = ''
@@ -45,11 +42,11 @@ watch(() => props.show, (open) => {
       @click.self="emits('close')"
     >
       <div class="bg-card text-card-foreground rounded-2xl shadow-xl w-full max-w-sm p-6 border border-border animate-in zoom-in-95 duration-200">
-        
+
         <div class="flex justify-between items-center mb-4">
           <div class="flex items-center gap-2 text-destructive">
             <AlertTriangle class="w-5 h-5" />
-            <h2 class="text-lg font-bold">Dangerous Action</h2>
+            <h2 class="text-lg font-bold">{{ $t('modal.dangerous_action') }}</h2>
           </div>
           <button @click="emits('close')" class="p-1 hover:bg-muted rounded-full transition-colors">
             <X class="w-5 h-5" />
@@ -59,7 +56,7 @@ watch(() => props.show, (open) => {
         <div class="text-sm text-muted-foreground mb-6">
           <p v-if="description" class="mb-2">{{ description }}</p>
           <p>
-            To confirm, type <b>{{ entityTitle }}</b> below:
+            {{ $t('modal.to_confirm_type', { entity: entityTitle }) }}
           </p>
         </div>
 
@@ -73,13 +70,13 @@ watch(() => props.show, (open) => {
             @keyup.enter="handleConfirm"
           />
 
-          <Button 
-            variant="destructive" 
+          <Button
+            variant="destructive"
             class="w-full h-12 rounded-xl shadow-md"
             :disabled="confirmText !== entityTitle"
             @click="handleConfirm"
           >
-            Confirm Deletion
+            {{ $t('modal.confirm_deletion') }}
           </Button>
         </div>
       </div>

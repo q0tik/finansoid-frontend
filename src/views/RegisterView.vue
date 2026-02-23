@@ -2,8 +2,10 @@
 import { ref } from 'vue'
 import { register } from '@/api/auth'
 import { useRouter } from 'vue-router'
+import { useI18n } from 'vue-i18n'
 
 const router = useRouter()
+const { t } = useI18n()
 
 const username = ref('')
 const password = ref('')
@@ -13,12 +15,12 @@ const errorMsg = ref('')
 
 async function handleRegister() {
     if (!username.value || !password.value || !password2.value) {
-        errorMsg.value = 'Заполните все поля'
+        errorMsg.value = t('register.fill_all_fields')
         return
     }
 
     if (password.value !== password2.value) {
-        errorMsg.value = 'Пароли не совпадают'
+        errorMsg.value = t('register.passwords_not_match')
         return
     }
 
@@ -30,7 +32,7 @@ async function handleRegister() {
     loading.value = false
 
     if (!res.success) {
-        errorMsg.value = res.error || 'Ошибка регистрации'
+        errorMsg.value = res.error || t('register.error')
         return
     }
 
@@ -46,12 +48,12 @@ async function handleRegister() {
       color: 'var(--text-pages)'
     }"
   >
-    <h1 class="text-2xl font-semibold mb-6 text-center">Register</h1>
+    <h1 class="text-2xl font-semibold mb-6 text-center">{{ $t('register.title') }}</h1>
 
     <div class="space-y-4 max-w-sm mx-auto w-full">
 
       <div>
-        <label class="text-sm block mb-1">Username</label>
+        <label class="text-sm block mb-1">{{ $t('register.username') }}</label>
         <input
           v-model="username"
           type="text"
@@ -65,7 +67,7 @@ async function handleRegister() {
       </div>
 
       <div>
-        <label class="text-sm block mb-1">Password</label>
+        <label class="text-sm block mb-1">{{ $t('register.password') }}</label>
         <input
           v-model="password"
           type="password"
@@ -79,7 +81,7 @@ async function handleRegister() {
       </div>
 
       <div>
-        <label class="text-sm block mb-1">Repeat password</label>
+        <label class="text-sm block mb-1">{{ $t('register.repeat_password') }}</label>
         <input
           v-model="password2"
           type="password"
@@ -103,10 +105,9 @@ async function handleRegister() {
           color: 'var(--text-on-accent)'
         }"
       >
-        {{ loading ? 'Registering...' : 'Register' }}
+        {{ loading ? $t('register.registering') : $t('register.title') }}
       </button>
 
-      <!-- Кнопка назад на логин -->
       <button
         @click="router.push('/login')"
         class="w-full py-2 rounded mt-2 border"
@@ -115,7 +116,7 @@ async function handleRegister() {
           color: 'var(--text-pages)'
         }"
       >
-        Back to Login
+        {{ $t('register.back_to_login') }}
       </button>
 
     </div>

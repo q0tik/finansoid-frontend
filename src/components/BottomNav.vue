@@ -1,26 +1,29 @@
 <script setup lang="ts">
 import { useRoute, useRouter } from 'vue-router'
 import { ChartLine, User, Settings, Plus, ArrowLeftRight } from 'lucide-vue-next'
+import { useI18n } from 'vue-i18n'
+import { computed } from 'vue'
 import { cn } from '@/lib/utils'
 
 const router = useRouter()
 const route = useRoute()
+const { t } = useI18n()
 
-const items = [
-  { name: 'Home',          icon: ChartLine,     route: '/' },
-  { name: 'Transactions',  icon: ArrowLeftRight,route: '/transactions' },
-  { name: 'Profile',       icon: User,          route: '/profile' },
-  { name: 'Settings',      icon: Settings,      route: '/settings' }
-]
+const items = computed(() => [
+  { name: t('nav.home'),         icon: ChartLine,      route: '/' },
+  { name: t('nav.transactions'), icon: ArrowLeftRight, route: '/transactions' },
+  { name: t('nav.profile'),      icon: User,           route: '/profile' },
+  { name: t('nav.settings'),     icon: Settings,       route: '/settings' }
+])
 
 const isActive = (path: string) => route.path === path
 </script>
 
 <template>
   <div class="fixed bottom-0 left-0 right-0 z-50">
-    
+
     <div class="bottom-bar-bg bg-card border-t border-border shadow-[0_-8px_30px_rgba(0,0,0,0.1)] dark:shadow-none transition-colors duration-300">
-      
+
       <div class="flex justify-around items-center h-16 px-4 relative z-10">
         <div class="flex flex-1 justify-around">
           <button v-for="item in items.slice(0, 2)" :key="item.route" @click="router.push(item.route)"
@@ -54,13 +57,9 @@ const isActive = (path: string) => route.path === path
 
 <style scoped>
 .bottom-bar-bg {
-  /* Мы используем маску, чтобы "вырезать" полукруг из прямоугольника */
   -webkit-mask: radial-gradient(circle 38px at 50% 0, #0000 98%, #000);
   mask: radial-gradient(circle 38px at 50% 0, #0000 98%, #000);
-  /* 38px — это радиус выреза. Подгоняй его под размер кнопки (14*4 = 56px / 2 = 28px + запас) */
 }
-
-/* Фикс для iPhone */
 .bottom-bar-bg {
   padding-bottom: env(safe-area-inset-bottom);
 }
