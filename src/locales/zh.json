@@ -66,7 +66,18 @@
     "activity_highlights": "活动概览",
     "coming_soon": "即将推出",
     "coming_soon_desc": "资产与投资组合管理功能正在开发中。",
-    "finansoid_system": "Finansoid System"
+    "finansoid_system": "Finansoid System",
+    "period_last_day": "今天",
+    "period_last_week": "本周",
+    "period_last_month": "本月",
+    "period_last_year": "本年",
+    "accounts": "账户",
+    "expense_categories": "支出",
+    "income_categories": "收入",
+    "recent_transactions": "最近",
+    "no_data": "本期无数据",
+    "balance": "余额",
+    "transfer": "转账"
   },
   "transaction": {
     "expense": "支出",
@@ -106,7 +117,14 @@
     "from_date": "开始日期",
     "to_date": "结束日期",
     "loading_more": "加载更多...",
-    "all_loaded": "所有交易已加载"
+    "all_loaded": "所有交易已加载",
+    "details": "交易详情",
+    "delete_title": "删除交易",
+    "delete_desc": "此操作无法撤销。",
+    "entries": "条目",
+    "entry_from": "转出",
+    "entry_to": "转入",
+    "entry_fee": "手续费"
   },
   "profile": {
     "management": "管理",
@@ -169,7 +187,7 @@
     "language": "语言",
     "subscription": "订阅",
     "contact_support": "联系支持",
-    "version": "版本 0.7.3（测试版）"
+    "version": "版本"
   },
   "feedback": {
     "bug": "错误",

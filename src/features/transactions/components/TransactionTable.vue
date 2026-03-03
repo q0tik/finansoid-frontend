@@ -5,9 +5,23 @@ import { getAccountsDropdown } from '@/api/accounts'
 import { useTransactions } from '@/features/transactions/composables/useTransactions'
 import TransactionFilters from '@/features/transactions/components/TransactionFilters.vue'
 import TransactionList from '@/features/transactions/components/TransactionList.vue'
+import TransactionInfoModal from '@/features/transactions/components/TransactionInfoModal.vue'
 
-const { accountId, fromDttm, toDttm, loading, hasMore, isInitialLoad, transactionsByDate, loadMore } =
+const { accountId, fromDttm, toDttm, transactions, loading, hasMore, isInitialLoad, transactionsByDate, loadMore } =
   useTransactions()
+
+const selectedTransactionId = ref(null)
+const showTransactionModal = ref(false)
+
+function openTransactionModal(id) {
+  selectedTransactionId.value = id
+  showTransactionModal.value = true
+}
+
+function handleTransactionDeleted() {
+  transactions.value = transactions.value.filter((tx) => tx.id !== selectedTransactionId.value)
+  showTransactionModal.value = false
+}
 
 const accounts = ref([])
 const scrollComponent = ref(null)
@@ -65,8 +79,16 @@ onMounted(async () => {
         :has-more="hasMore"
         :is-initial-load="isInitialLoad"
         :load-more="loadMore"
+        :on-select="openTransactionModal"
       />
     </div>
+
+    <TransactionInfoModal
+      :show="showTransactionModal"
+      :transaction-id="selectedTransactionId"
+      @close="showTransactionModal = false"
+      @deleted="handleTransactionDeleted"
+    />
   </div>
 </template>
 

@@ -1,6 +1,6 @@
 <script setup>
 import { computed } from 'vue'
-import { ArrowUpRight, ArrowDownLeft, ArrowLeftRight, Trash2 } from 'lucide-vue-next'
+import { ArrowUpRight, ArrowDownLeft, ArrowLeftRight } from 'lucide-vue-next'
 import { getTransactionType, formatAmount, formatTime } from '@/lib/format'
 import { useI18n } from 'vue-i18n'
 import { useDefaultTitles } from '@/composables/useDefaultTitles'
@@ -10,6 +10,7 @@ const { categoryTitle } = useDefaultTitles()
 
 const props = defineProps({
   transaction: { type: Object, required: true },
+  onSelect: { type: Function, required: true },
 })
 
 const type = computed(() => getTransactionType(props.transaction))
@@ -22,7 +23,7 @@ const label = computed(() => {
 </script>
 
 <template>
-  <div class="group flex items-center justify-between p-4 active:bg-muted/50 transition-colors">
+  <div class="group flex items-center justify-between p-4 active:bg-muted/50 transition-colors cursor-pointer" @click="onSelect(transaction.id)">
     <div class="flex items-center gap-4 min-w-0">
       <div
         :class="[

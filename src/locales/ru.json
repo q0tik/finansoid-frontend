@@ -82,7 +82,18 @@
     "activity_highlights": "Активность",
     "coming_soon": "Скоро",
     "coming_soon_desc": "Управление активами и портфелем находится в разработке.",
-    "finansoid_system": "Finansoid System"
+    "finansoid_system": "Finansoid System",
+    "period_last_day": "Сегодня",
+    "period_last_week": "Неделя",
+    "period_last_month": "Месяц",
+    "period_last_year": "Год",
+    "accounts": "Счета",
+    "expense_categories": "Расходы",
+    "income_categories": "Доходы",
+    "recent_transactions": "Последние",
+    "no_data": "Нет данных за период",
+    "balance": "Баланс",
+    "transfer": "Перевод"
   },
   "transaction": {
     "expense": "Расход",
@@ -122,7 +133,14 @@
     "from_date": "С даты",
     "to_date": "По дату",
     "loading_more": "Загрузка...",
-    "all_loaded": "Все транзакции загружены"
+    "all_loaded": "Все транзакции загружены",
+    "details": "Детали транзакции",
+    "delete_title": "Удалить транзакцию",
+    "delete_desc": "Это действие нельзя отменить.",
+    "entries": "Записи",
+    "entry_from": "Откуда",
+    "entry_to": "Куда",
+    "entry_fee": "Комиссия"
   },
   "profile": {
     "management": "Управление",
@@ -185,7 +203,7 @@
     "language": "Язык",
     "subscription": "Подписка",
     "contact_support": "Написать в поддержку",
-    "version": "Версия 0.7.3 (БЕТА)"
+    "version": "Версия"
   },
   "feedback": {
     "bug": "Баг",

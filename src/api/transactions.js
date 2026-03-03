@@ -60,6 +60,28 @@ export async function getTransactions(page = 1, perPage = 10, is_income = null, 
   }
 }
 
+// Получить транзакцию по id (GET /finansoid-api/v1/transactions/{id})
+export async function getTransactionById(id) {
+  try {
+    const { data } = await api.get(`/finansoid-api/v1/transactions/${id}`)
+    return data
+  } catch (err) {
+    console.error('getTransactionById() failed:', err)
+    return { success: false }
+  }
+}
+
+// Удалить транзакцию (DELETE /finansoid-api/v1/transactions/{id})
+export async function deleteTransaction(id) {
+  try {
+    const { data } = await api.delete(`/finansoid-api/v1/transactions/${id}`)
+    return data
+  } catch (err) {
+    console.error('deleteTransaction() failed:', err)
+    return { success: false }
+  }
+}
+
 // Создать транзакцию (POST /finansoid-api/v1/transactions)
 export async function createTransaction(payload) {
   try {

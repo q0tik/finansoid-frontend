@@ -5,6 +5,7 @@ import TransactionItem from './TransactionItem.vue'
 defineProps({
   date: { type: String, required: true },
   items: { type: Array, required: true },
+  onSelect: { type: Function, required: true },
 })
 </script>
 
@@ -22,7 +23,7 @@ defineProps({
     <div
       class="bg-card border border-border/40 rounded-[24px] divide-y divide-border/20 overflow-hidden shadow-sm"
     >
-      <TransactionItem v-for="tx in items" :key="tx.id" :transaction="tx" />
+      <TransactionItem v-for="tx in items" :key="tx.id" :transaction="tx" :on-select="onSelect" />
     </div>
   </div>
 </template>

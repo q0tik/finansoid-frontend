@@ -9,6 +9,8 @@ import LanguageSelector from '@/features/settings/components/LanguageSelector.vu
 
 const openSection = ref(null)
 const currentTheme = ref(localStorage.getItem('user-theme') || 'light')
+
+const version = ref("0.8.8-δ")
 </script>
 
 <template>
@@ -68,7 +70,7 @@ const currentTheme = ref(localStorage.getItem('user-theme') || 'light')
     </a>
 
     <div class="mt-auto py-6 text-center">
-      <p class="text-[10px] font-black uppercase tracking-[0.3em] opacity-20">{{ $t('settings.version') }}</p>
+      <p class="text-[10px] font-black uppercase tracking-[0.3em] opacity-20">{{ $t('settings.version') }} {{ version }}</p>
     </div>
   </div>
 </template>

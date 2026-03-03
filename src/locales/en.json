@@ -144,7 +144,18 @@
     "activity_highlights": "Activity Highlights",
     "coming_soon": "Coming Soon",
     "coming_soon_desc": "The Assets & Portfolio management is currently under development.",
-    "finansoid_system": "Finansoid System"
+    "finansoid_system": "Finansoid System",
+    "period_last_day": "Today",
+    "period_last_week": "Week",
+    "period_last_month": "Month",
+    "period_last_year": "Year",
+    "accounts": "Accounts",
+    "expense_categories": "Expenses",
+    "income_categories": "Income",
+    "recent_transactions": "Recent",
+    "no_data": "No data for this period",
+    "balance": "Balance",
+    "transfer": "Transfer"
   },
   "transaction": {
     "expense": "Expense",
@@ -184,7 +195,14 @@
     "from_date": "From Date",
     "to_date": "To Date",
     "loading_more": "Loading more...",
-    "all_loaded": "All transactions loaded"
+    "all_loaded": "All transactions loaded",
+    "details": "Transaction Details",
+    "delete_title": "Delete Transaction",
+    "delete_desc": "This action cannot be undone.",
+    "entries": "Entries",
+    "entry_from": "From",
+    "entry_to": "To",
+    "entry_fee": "Fee"
   },
   "profile": {
     "management": "Management",
@@ -247,7 +265,7 @@
     "language": "Language",
     "subscription": "Subscription",
     "contact_support": "Contact Support",
-    "version": "Version 0.7.3 (BETA)"
+    "version": "Version"
   },
   "feedback": {
     "bug": "Bug",

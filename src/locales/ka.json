@@ -66,7 +66,18 @@
     "activity_highlights": "აქტივობა",
     "coming_soon": "მალე",
     "coming_soon_desc": "აქტივებისა და პორტფელის მართვა დამუშავების პროცესშია.",
-    "finansoid_system": "Finansoid System"
+    "finansoid_system": "Finansoid System",
+    "period_last_day": "დღეს",
+    "period_last_week": "კვირა",
+    "period_last_month": "თვე",
+    "period_last_year": "წელი",
+    "accounts": "ანგარიშები",
+    "expense_categories": "გასავლები",
+    "income_categories": "შემოსავლები",
+    "recent_transactions": "ბოლო",
+    "no_data": "ამ პერიოდის მონაცემები არ არის",
+    "balance": "ბალანსი",
+    "transfer": "გადარიცხვა"
   },
   "transaction": {
     "expense": "გასავალი",
@@ -106,7 +117,14 @@
     "from_date": "თარიღიდან",
     "to_date": "თარიღამდე",
     "loading_more": "იტვირთება...",
-    "all_loaded": "ყველა ტრანზაქცია ჩატვირთულია"
+    "all_loaded": "ყველა ტრანზაქცია ჩატვირთულია",
+    "details": "ტრანზაქციის დეტალები",
+    "delete_title": "ტრანზაქციის წაშლა",
+    "delete_desc": "ეს მოქმედება შეუქცევადია.",
+    "entries": "ჩანაწერები",
+    "entry_from": "საიდან",
+    "entry_to": "სად",
+    "entry_fee": "საკომისიო"
   },
   "profile": {
     "management": "მართვა",
@@ -169,7 +187,7 @@
     "language": "ენა",
     "subscription": "გამოწერა",
     "contact_support": "მხარდაჭერასთან დასაკავშირებლად",
-    "version": "ვერსია 0.7.3 (ᲑᲔᲢᲐ)"
+    "version": "ვერსია"
   },
   "feedback": {
     "bug": "შეცდომა",

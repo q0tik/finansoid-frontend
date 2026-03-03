@@ -9,6 +9,7 @@ const props = defineProps({
   hasMore: { type: Boolean, default: true },
   isInitialLoad: { type: Boolean, default: true },
   loadMore: { type: Function, required: true },
+  onSelect: { type: Function, required: true },
 })
 
 const { sentinel } = useInfiniteScroll(() => {
@@ -23,6 +24,7 @@ const { sentinel } = useInfiniteScroll(() => {
       :key="date"
       :date="date"
       :items="items"
+      :on-select="onSelect"
     />
 
     <div ref="sentinel" class="py-6 flex flex-col items-center justify-center">
